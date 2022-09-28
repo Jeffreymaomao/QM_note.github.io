@@ -208,10 +208,11 @@ display:inline-block;
 overflow:hidden;
 }
 .calculate_region span{
-width:45%;
 text-align:left;
 display:inline-block;
-overflow:hidden;
+}
+.calculate_region span:nth-of-type(1){
+width:45%;
 }
 .calculate_region li{
 margin:0px ;
