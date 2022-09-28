@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Quantum Physics (II)</title>
+	
+	<link rel="stylesheet" href="https://latex.now.sh/style.css">
+	<link rel="stylesheet" href="/Users/apple/Documents/LaTex/LaTex.css">
+	<link rel="stylesheet" href="style_for_note.css">
+	<base target="_blank">
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	
+</head>
+
+<body style="background-color:white;border:solid 0.5px;max-width:800px;min-width:250px">
+<div id="navigation"><div id="leftbox"><div><div></div><div id="control_box">&#9664</div></div></div></div>
+	<h1>Quantum Physics (II)</h1>
+	<p class="author">Chnage Mao Yang<br> September 7, 2022</p>
+	
+	<div class="abstract">
+		<h2>Abstract</h2>
+		<p>
+		This is the note for quantum physics (II) rendering by html, css... language. 
+		</p>
+	</div>
+	<div class="syllabus" style="">
+		<h2>Syllabus</h2>
+		<button class="collapsible">Click to open</button>
+		<div class="content">
+			<p><iframe src="pdf/syllabus_Fall2022.pdf"></iframe></p>
+		</div>
+	</div>
+	
+	
+	
+	<br>
+	<hr>
+	<!---------------------------------------------------------------------------------------------------------------------->
+<h1>Stellar evolution</h1>
+<h2>White Dwarf 白矮星</h2><div class="h2_div">
+<h3>Equation</h3>
+
+	<p>
+	\[\begin{aligned}
+	&\ce{^{1}H + ^{1}H -> ^{2}H + e^{+}  + {\nu} + 1.44 \rm{MeV}}\\[2ex]
+	&\ce{^{2}H + ^{1}H -> ^{3}H  + {\gamma} + 5.49 \rm{MeV}}\\[2ex]
+	&\ce{^{3}H + ^{3}H -> ^{4}H + ^{1}H + ^{1}H + 12.85 \rm{MeV}}
+	\end{aligned}\]
+	
+	After all $\ce{^{1}H}$ burn out, these reaction stop. Gravitational contraction compress $\ce{He}$ until it begins start a new reaction.
+	\[\begin{aligned}
+	&\ce{^{4}He+ ^{4}He -> ^{8}Be+ {\gamma} -} \underset{{\rm barrier}}{9.6 \rm{keV}}\\[2ex]
+	&\ce{^{8}Be + ^{4}He -> ^{12}C  + {\gamma} + 7.4 \rm{MeV}}
+	\end{aligned}\]
+	and some other nuclear process. <br>
+	This burning stops when the star consist primaryly "iron", "slilicon" an near by elements 
+	\[\text{graviational contraction}\underset{\text{balance}}\longleftrightarrow\text{degeneracy presssure}\]
+	
+<h3>Pressure</h3>
+	<ul>
+	<li><h4>Graviationnal Pressure</h4>
+		\[P_g = -\frac{1}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2 V^{-4/3}\]
+		,which is toward the center of stellar.
+		<button class="collapsible ">Calculation</button><div class="content"><p>
+			Fisrt, calculate the potential in a shell between $r$ and $r+dr$
+			\[dU_{g}
+			= -G\frac{M_{0\sim r}\cdot M_{r \sim r+dr}}{r}
+			= -G\frac{\left(\frac{4}{3}\pi r^3 \rho \right)\left(4\pi r^2 dr \rho \right)}{r} 
+			= -\frac{(4\pi)^2}{3}G\rho r^4dr,\]
+			where 
+			\[\begin{aligned}
+			&N\text{ : number of nucleons in the stellar;}\\
+			&m_n\text{ : masses of those nucleons;}\\
+			&\rho \text{ : density of stellar;}\\
+			&V \text{ : volumn of stellar,}\\
+			\end{aligned}\]
+			and
+			\[\rho = \frac{Nm_N}{\frac{4}{3}\pi R^3 }
+			\quad\Rightarrow \quad 
+			R = \left(\frac{3}{4\pi}Nm_N \frac{1}{\rho }\right)^{1/3} = \left(\frac{3}{4\pi}V\right)^{1/3}.\]
+			Intergral $dU_g$, we might have the potential energy of stellar
+			\[U_{g} = \int_{0}^{R} -\frac{(4\pi)^2}{3}G\rho r^4dr,\]
+			then plug in the density, we have
+			\[U_g = -\frac{3}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2 V^{-1/3}.\]
+			Since the pressure $P$ is taking the derivative of the energy with respect to the volume
+			\[P_g = -\frac{\partial U_g}{\partial V} = \frac{3}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2 \frac{\partial }{\partial V}
+			\left(V^{-1/3}\right)\]
+			, we may solve the gravitational pressure
+			\[\boxed{P_g = -\frac{1}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2 V^{-4/3}}\]
+		</p><br></div>
+	<li><h4>Degeneracy Pressure</h4>
+			\[P_d = \frac{\hbar^2 \pi^3}{15m_e}\left(\frac{3Nq}{\pi}\right)^{5/3}V^{-5/3}\]
+			, which is pointing outward.
+			<button class="collapsible ">Calculation</button><div class="content"><p>
+			The degeneracy pressure is provided by electron ($e^{-}$). Here, assume 
+			<div class="scroll-wrapper">
+			\[ \left(\text{number of electrons } N_e\right)
+			\approx \left(\text{number of protons }N_p\right)
+			\approx \left(\frac{\text{number of nucleons }N}{2}\right)\]
+			</div>
+			or we might using a factor $q=\frac{1}{2}$ to determine the ratio, the desity $n$ of $e^{-}$ is given by
+			\[n=\frac{N_e}{V} = \frac{N/2}{V}=\frac{N}{V} q.\]
+			 The Fermi energy can be calculated by
+			 \[\begin{aligned}
+			 E_{\rm total} &=\int_{0}^{\varepsilon_{\!_{F}}} \varepsilon D(\epsilon)d\varepsilon
+			 =\frac{\sqrt{2}Vm_{e}^{3/2}}{\pi^2\hbar^3}\int_{0}^{\varepsilon_{\!_F}} \varepsilon^{3/2}{d\varepsilon}
+			 \\[2ex]
+			 &=\frac{\hbar^2\pi^{4/3}}{10m_e}\left(3N_e \right)^{5/3}V^{-2/3}.
+			 \end{aligned}\]
+			 Since the pressure $P$ is taking the derivative of the energy with respect to the volume
+			 \[\begin{aligned}
+			 P_d 
+			 &= -\frac{\partial E_{\rm total}}{\partial V} 
+			 = \frac{\hbar^2\pi^{4/3}}{10m_e}\left(3N_e \right)^{5/3}\frac{\partial}{\partial V} \left(V^{-2/3}\right)
+			\\[2ex]
+			& = \frac{\hbar^2 \pi^3}{15m_e}\left(\frac{3n}{\pi}\right)^{5/3}
+			\end{aligned}\]
+			, we may solve the degeneracy pressure of electron
+			\[\boxed{P_d = \frac{\hbar^2 \pi^3}{15m_e}\left(\frac{3Nq}{\pi}\right)^{5/3}V^{-5/3}}\]
+		</p><br></div>	
+	</ul>
+<h3>Radius</h3>
+	Solving for volumn $V$ making a balance between gravitational pressure and degeneracy pressure, 
+	\[\left|P_g\right| = \left|P_d\right|,\]
+	then estimate the radius $R^*$ called "Critical Radius" 
+	\[R^*=\left(\frac{18\pi^2}{16}\right)^{1/3}q^{5/3}\, \frac{\hbar^2N^{-1/3}}{Gm_n^2m_e}\]
+	<button class="collapsible ">Calculation</button><div class="content"><p>
+		Let $\left|P_g\right| = \left|P_d\right|$, i.e.
+		\[\frac{1}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2 V^{-4/3} = \frac{\hbar^2 \pi^3}{15m_e}\left(\frac{3Nq}{\pi}\right)^{5/3}V^{-5/3}\]
+		then 
+		\[\begin{aligned}
+		V^{-1/3} &= \frac{\frac{1}{5}\left(\frac{4\pi}{3}\right)^{1/3} G \left(Nm_n\right)^2}{\frac{\hbar^2 \pi^3}{15m_e}\left(\frac{3Nq}{\pi}\right)^{5/3}}
+		\\[2ex]
+		& = \left(\frac{4\pi}{3}\right)^{1/3} G\left(Nm_n\right)^2 \frac{3m_e}{\hbar^2\pi^3}\left(\frac{\pi}{3Nq}\right)^{5/3}
+		\end{aligned}\]
+		solving that the balance volumn 
+		\[V^{-1/3} = \left(\frac{4\pi}{3}\right)^{1/3} G\left(Nm_n\right)^2\frac{3m_e}{\hbar^2\pi^{3}}\left(\frac{\pi}{3Nq}\right)^{5/3}.\]
+		Suppose it is a sphere
+		\[V = \frac{4}{3}\pi R^3 \quad\Rightarrow\quad
+		R = \left(\frac{3}{4\pi}\right)^{1/3} V^{1/3},\]
+		plugging
+		\[\begin{aligned}
+		R^* &= \left(\frac{3}{4\pi}\right)^{1/3} \left(\left(\frac{4\pi}{3}\right)^{1/3} G\left(Nm_n\right)^2\frac{3m_e}{\hbar^2\pi^{3}}\left(\frac{\pi}{3Nq}\right)^{5/3}\right)^{-1}
+		\\[2ex]
+		&= \left(\frac{3}{4\pi}\right)^{2/3}\frac{\hbar^2\pi^{3}}{G\left(Nm_n\right)^23m_e}\left(\frac{3Nq}{\pi}\right)^{5/3}
+		\\[2ex]
+		& = \left(\frac{9}{16\pi^2}\right)^{1/3}\frac{\pi^{3} 3^{5/3} }{3\pi^{5/3}}\, q^{5/3}\,\frac{\hbar^2 N^{5/3}}{G\left(Nm_n\right)^2m_e}
+		\\[2ex]
+		& = \left(\frac{81}{16\pi^2}\right)^{1/3}\pi^{4/3}\, q^{5/3}\,\frac{\hbar^2 N^{-1/3}}{Gm_n^2m_e}
+		\\[2ex]
+		& = \left(\frac{81\pi^2}{16}\right)^{1/3}\, q^{5/3}\,\frac{\hbar^2 N^{-1/3}}{Gm_n^2m_e}.
+		\end{aligned}\]	
+	Solving the Critical Radius
+		\[R^* = \left(\frac{81\pi^2}{16}\right)^{1/3}q^{5/3}\,\frac{\hbar^2 N^{-1/3}}{Gm_n^2m_e}.\]
+	</p><br></div>
+<h3>Example</h3>
+<div class="calculate_region" id="exp1">
+<ul>
+	<li> <span>Reduced Planck's constant</span>
+		<span>$\hbar = 1.054571817\times10^{−34}\ {\rm J\cdot s}$</span>
+	</li>
+	<li> <span>Gravitational constant</span>
+		<span>$G=6.67430(15)\times 10^{-11}\ {\rm m^{3}\cdot kg^{-1}\cdot s^{-2}}$</span>
+	</li>
+	<li> <span>Mass of Neutron</span>
+		<span>$m_n=1.67492749804(95)\times 10^{−27}\ \rm kg$</span>
+	</li>
+	<li> <span>Mass of Electron</span>
+		<span>$m_e=9.1093837015(28)\times 10^{−31}\ \rm kg$</span>
+	</li>
+	<li> <span>proportion of $N_n$ to $N$</span>
+		<span> $q\ =$  <input type="number" value="0.5" min="0" max="1" step="0.01" style="border:0.5;text-align:right;width:40px;" /></span>
+	</li>
+	<li> <span>Number of Atom</span>
+		<span> $N=$  <input type="number" value="1.2" step="0.01" style="border:0.5;width:30px;text-align:right;"/>$\times$ 10^<input type="number" value="57" step="0.1" style="border:0.5;width:30px;text-align:left"/></span>
+	</li>
+	 
+</ul>
+</div>
+	<p style="padding:10px;margin:20px;color:blue;" >Critical Radius $R^* \approx\ $<span id="example1_1"></span>$\ \rm m$ $\approx$ <span id="example1_2"></span>$\rm\ km$</p>
+<script>
+const elementsArray1 = document.querySelectorAll("#exp1 input");
+var L1 = elementsArray1[0];
+var L2 = elementsArray1[1];
+var L3 = elementsArray1[2];
+const e1_1 = document.getElementById("example1_1");
+const e1_2 = document.getElementById("example1_2");
+Calculate1();
+elementsArray1.forEach(function(elem) {
+	elem.addEventListener("input", Calculate1);
+	});
+function Calculate1(){
+	var q = L1.value;
+	var N = L2.value * Math.pow(10,  L3.value);
+	const hbar = 1.054571817e-34;
+	const G = 6.67430e-11;
+	const m_n = 1.67492749804e-27;
+	const m_e = 9.1093837015e-31;
+	var Ans = 81*Math.PI*Math.PI/16;
+	Ans = Math.pow(Ans,1/3) * Math.pow(q,5/3) *hbar *hbar * Math.pow(N,-1/3);
+	Ans = Ans/G/m_n/m_n/m_e;
+	order = 1;
+	Ans1= Math.round(Ans/order)*order
+	Ans2= Math.round(Ans/order/1000)*order
+	e1_1.innerText = Ans1;
+	e1_2.innerText =  Ans2;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</div><h2>Neutron star 中子星</h2><div class="h2_div">
+	Since the gravitational pressure and the degeneracy pressure of "Neutron star" is the same as "White Dwarf" except mass, only need to changing the mass of electron $m_n$ into mass of neutron $m_n$. We will get the Critical Radius
+	\[R^* = \left(\frac{81\pi^2}{16}\right)^{1/3}q^{5/3}\,\frac{\hbar^2 N^{-1/3}}{Gm_n^2m_n}.\]
+	<h3>Example</h3>
+<div class="calculate_region" id="exp2">
+<ul>
+	<li> <span>Reduced Planck's constant</span>
+		<span>$\hbar = 1.054571817\times10^{−34}\ {\rm J\cdot s}$</span>
+	</li>
+	<li> <span>Gravitational constant</span>
+		<span>$G=6.67430(15)\times 10^{-11}\ {\rm m^{3}\cdot kg^{-1}\cdot s^{-2}}$</span>
+	</li>
+	<li> <span>Mass of Neutron</span>
+		<span>$m_n=1.67492749804(95)\times 10^{−27}\ \rm kg$</span>
+	</li>
+	<li> <span>proportion of $N_n$ to $N$</span>
+		<span> $q\ =$  <input type="number" value="1" min="0" max="1" step="0.01" style="border:0.5;text-align:right;width:40px;" /></span>
+	</li>
+	<li> <span>Number of Atom</span>
+		<span> $N=$  <input type="number" value="1.2" step="0.01" style="border:0.5;width:30px;text-align:right;"/>$\times$ 10^<input type="number" value="57" step="0.1" style="border:0.5;width:30px;text-align:left"/></span>
+	</li>
+	 
+</ul>
+</div>
+	<p style="padding:10px;margin:20px;color:blue;" >Critical Radius $R^* \approx\ $<span id="example2_1"></span>$\ \rm m$ $\approx$ <span id="example2_2"></span>$\rm\ km$
+	</p>
+<script>
+const elementsArray2 = document.querySelectorAll("#exp2 input");
+var K1 = elementsArray2[0];
+var K2 = elementsArray2[1];
+var K3 = elementsArray2[2];
+const e2_1 = document.getElementById("example2_1");
+const e2_2 = document.getElementById("example2_2");
+Calculate1();
+elementsArray2.forEach(function(elem) {
+	elem.addEventListener("input", Calculate1);
+	});
+function Calculate1(){
+	var q = K1.value;
+	var N = K2.value * Math.pow(10,  K3.value);
+	const hbar = 1.054571817e-34;
+	const G = 6.67430e-11;
+	const m_n = 1.67492749804e-27;
+	var Ans = 81*Math.PI*Math.PI/16;
+	Ans = Math.pow(Ans,1/3) * Math.pow(q,5/3) *hbar *hbar * Math.pow(N,-1/3);
+	Ans = Ans/G/m_n/m_n/m_n;
+	order = 1;
+	Ans1 = Math.round(Ans/order)*order
+	Ans2 = Math.round(Ans/order/1000)*order
+	e2_1.innerText =  Ans1;
+	e2_2.innerText =  Ans2;
+}
+</script>
+</div>
+<br><br><br><br><br><br>
+
+<h1>Semi--classical approximation</h1>
+<h2>The classical region</h2><div class="h2_div">
+<h3>Energy band in lattice</h3>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<div class="hide">
+	<button class="title_collapsible "><h1>Stellar evolution</h1></button>
+		<div class="title_content">
+		<!--Content-->
+	</div>		
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<h2>Math formula</h2>
+	$$\frac{1}{2}$$ $\sum_{n=1}^{100}n^2$ 
+	<div class="scroll-wrapper">
+	\[(1+x)^{n}=1+n x+\frac{n(n-1)}{2 !} x^{2}+\frac{n(n-1)(n-2)}{3 !} x^{3}+\frac{n(n-1)(n-2)(n-3)}{4 !}
+	        x^{4}+\frac{n(n-1)(n-2)(n-3)(n-4)}{5 !}
+	        x^{5}+\cdots\]
+	</div>			
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<script src="/Users/apple/Documents/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+
+<script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']], autoload: {
+      verb: []
+    }},svg: {fontCache: 'global'}};</script>
+<script>
+function Switch_by_click(Class, Active){
+	var coll = document.getElementsByClassName(Class);
+	for (var i = 0; i < coll.length; i++) {
+		coll[i].addEventListener("click", function() {
+			this.classList.toggle(Active);
+			var content = this.nextElementSibling;
+			if (content.style.maxHeight){
+				content.style.maxHeight = null;
+			} else {
+				content.style.maxHeight = content.scrollHeight + "px";
+				console.log( content.scrollHeight + "px");
+			}
+		});
+	}
+}
+
+function Switch(Class, Active){
+	var coll = document.getElementsByClassName(Class);
+	for (var i = 0; i < coll.length; i++) {
+		coll[i].classList.toggle(Active);
+		var content = coll[i].nextElementSibling;
+		if (content.style.maxHeight){
+			content.style.maxHeight = null;
+		} else {
+			content.style.maxHeight = content.scrollHeight + "px";
+		}
+	}
+}
+
+var coll = document.getElementsByClassName("title_collapsible");
+for (var i = 0; i < coll.length; i++) {
+	coll[i].addEventListener("click", function() {
+		this.classList.toggle("title_active");
+		var content = this.nextElementSibling;
+		if(this.className=='title_collapsible'){
+			content.style.maxHeight = "0px";
+		}else{
+			content.style.maxHeight = "100%";
+		}
+	});
+}
+
+
+//-------
+
+Switch("title_collapsible", "title_active");
+Switch_by_click("collapsible", "active");
+//--------------------------------------------------------------
+function Adjust_width(){var t=window.innerWidth;const e=document.getElementsByTagName("body")[0];var n=t-2*document.getElementById("navigation").offsetWidth;e.style.maxWidth=+n+"px"}
+Adjust_width();
+addEventListener('mousemove', (event) => {Adjust_width()});
+var intervalId = window.setInterval(function(){Adjust_width()}, 50)
+</script>
+</body>
+</html>

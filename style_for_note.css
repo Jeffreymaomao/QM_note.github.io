@@ -1,0 +1,236 @@
+h1 {
+margin: 150px 0px 50px 0px;
+text-align:center;
+}
+
+h2 {
+	margin:20px 0px 20px 0px
+}
+
+hr {
+height:1px;
+}
+
+.syllabus,
+.syllabus p{
+text-align: center;
+margin-top: 0;
+}
+.syllabus {
+margin: 2.25rem 0;
+}
+.syllabus > h2 {
+font-size: 1rem;
+margin-bottom: -0.2rem;
+}
+.syllabus > a {
+target:blank;
+}
+blockquote{
+margin:10%
+width:70%;
+border:solid 0.5px;
+padding:10px 60px
+}
+/*------------------*/
+iframe{
+margin:1.25rem 1px 1px 1px;
+border:solid 0.5px #ccc;
+width:600px;
+height:700px;
+}
+
+body{
+border:#eee
+}
+
+/*----計算內容（可收縮）-----------*/
+.collapsible {
+background-color: #f2f2f2;
+color: #663300;
+cursor: pointer;
+padding: 18px;
+width: 100%;
+border: solid 0.5px gray;
+text-align: left;
+outline: none;
+font-size: 15px;
+border-radius:	30px;
+transition: background 0.8s, border-radius 0.8s;
+}
+.active, .collapsible:hover {
+background-color: #aaa;
+color:#ffffcc;
+border-radius:	30px 30px 0px 0px;
+transition: background 0.8s, border-radius 0.8s;
+}
+
+.collapsible:after {
+content: '\25BA';
+font-weight: bold;
+float: right;
+margin-left: 5px;
+}
+
+.active:after {
+content: "\25BC";
+}
+
+.content {
+padding: 0px 18px 0px 18px;
+max-height: 0;
+overflow: hidden;
+transition: background 1s, border-radius 1s, max-height 0.3s ease-out;
+background-color: #f1f1f1;
+border-radius:	0px 0px 30px 30px;
+}
+.collapsible + .content{
+border: none;
+}
+
+.collapsible.active + .content{
+border:solid 0.5px gray;
+}
+
+/*---------調整body大小的控制鍵------------------*/
+#navigation
+{
+margin: -35px 0px 0px 0px;
+width:40px;
+height:100%;
+position: fixed;
+left: 0px;
+z-index:100;
+resize: horizontal;
+overflow: auto;
+max-width:350px;
+overflow: auto;
+}
+#leftbox{
+margin:0px 0px 0px 0px;
+width:100%;
+height:101%;
+max-width:500px;
+overflow: auto;
+}
+
+#leftbox > div {
+float:right;
+height:100%;
+width:15px;
+overflow: auto;
+}
+#leftbox > div > div{
+height:calc(100% - 20px);
+width:15px;
+display:block;
+overflow: auto;
+}
+#control_box{
+padding: 0px 0px 0px 0px;
+height:20px;
+width:15px;
+font-size:15px;
+color:black;
+display:block;
+margin: -10px 0px 0px 3px;
+overflow: auto;
+}
+
+.hide{
+display:none;
+}
+/*-------------章節隱藏--------------*/
+.title_collapsible {
+background-color: #f3eddf;
+color: #2d0c03;
+cursor: pointer;
+padding: 18px;
+width: 100%;
+border: solid 0.5px gray;
+text-align: left;
+outline: none;
+font-size: 15px;
+border-radius:	30px;
+transition: background 0.8s, border-radius 0.8s;
+}
+.title_active, .title_collapsible:hover {
+background-color: #eee;
+color:#1c5998;
+border-radius:	30px 30px 0px 0px;
+transition: background 0.8s, border-radius 0.8s;
+}
+
+.title_collapsible:after {
+content: '\25BA';
+font-weight: bold;
+float: right;
+margin-left: 5px;
+}
+
+.title_active:after {
+content: "\25BC";
+max-height:1000px;
+}
+
+.title_content {
+padding: 0px 18px 0px 18px;
+max-height: 0;
+overflow: hidden;
+transition: background 1s, border-radius 1s, max-height 0.3s ease-out;
+background-color: white;
+border-radius:	0px 0px 30px 30px;
+}
+.title_collapsible + .title_content{
+border: none;
+}
+
+.title_collapsible.title_active + .title_content{
+border:solid 0.5px gray;
+}
+
+.title_collapsible h1{
+margin: 20px;
+}
+/*--------------------------------------------------------------*/
+.h2_div {
+margin:0px 0px 0px 10px;
+padding:20px;
+border:#ccc solid 1px;
+border-left:#ccc solid 10px;
+border-radius:10px;
+}
+.calculate_region{
+border:solid 1px black;
+border-radius:10px;
+width:70%;
+display:inline-block;
+overflow:hidden;
+}
+.calculate_region span{
+width:45%;
+text-align:left;
+display:inline-block;
+overflow:hidden;
+}
+.calculate_region li{
+margin:0px ;
+list-style-type: none;
+}
+.calculate_region input {
+border-radius:5px;
+font-size:15px;
+border:solid 0.5px;
+text-align:right;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+
+
+
