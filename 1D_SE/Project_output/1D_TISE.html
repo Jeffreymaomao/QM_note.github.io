@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>1D_TISE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+
+
+
+    <!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+        init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                },
+                "HTML-CSS": {
+                    fonts: ["Latin-Modern"],
+                    linebreaks: { 
+                    automatic: true
+                    }
+                }
+            });
+        
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    <!-- End of mathjax configuration -->
+    <style>
+        img{
+            margin:auto;
+        }
+    </style>
+</head>
+
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h1 id="Time-independent-Schr&#246;dinger-equation-in-1D">Time-independent Schr&#246;dinger equation in 1D<a class="anchor-link" href="#Time-independent-Schr&#246;dinger-equation-in-1D">&#182;</a></h1>
+            <p>For the time-dependent Schrödinger equation
+                $$
+                i \hbar \frac{\partial}{\partial t} |\psi(t, x)\rangle = \hat{H} |\psi(t, x)\rangle
+                $$
+                can be decomposed by the method of separation of variables when the potential is time-independent $V=V(x)$, that is
+                $$
+                \hat{H}|\psi(x)\rangle = E|\psi(x)\rangle,
+                $$
+                where the hamiltonian is given by
+                $$
+                \hat{H} = -\frac{\hbar^2}{2 m} \nabla^2 + V(x).
+                $$
+            </p>
+
+        </div>
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h2 id="Problem">Problem<a class="anchor-link" href="#Problem">&#182;</a></h2>
+            <p>The goal of this project is to solve time-independent Schrödinger equation in 1-dimension called "Eigen Probelm", that is
+                $$
+                \boxed{\color{blue}{
+                -\frac{\hbar^2}{2 m}\frac{d^2}{dx^2}\psi(x) + V(x)\psi(x) = E\psi(x),
+                }}
+                $$
+            </p>
+            <h3 id="Discrete-Schr&#246;dinger-equation">Discrete Schr&#246;dinger equation<a class="anchor-link" href="#Discrete-Schr&#246;dinger-equation">&#182;</a></h3>
+            <p>The time-independent Schrödinger equation is
+                $$
+                -\frac{\hbar^2}{2 m}\frac{d^2}{dx^2}|\psi\rangle + V|\psi\rangle = E|\psi\rangle,
+                $$
+                where is the column vector
+                $$
+                |\psi\rangle = \psi_{i},\quad i=0,1,\ldots,n-1,
+                $$
+                potential $V$ is a diagonal matrix
+                $$
+                V = V_i\,\delta_{i,j},\quad i,j=0,1,\ldots,n-1,
+                $$
+                and the 1-dimension laplacian operator $\nabla^2$ approximate to a $n\times n$ matrix, since
+                $$
+                \frac{d^2f(x)}{dx^2} \approx \frac{f(x-\delta_x) - 2f(x) + f(x+\delta_x)}{\delta_x^2},
+                $$
+                we define
+                $$
+                \frac{d^2}{dx^2}f_i = \frac{1}{\delta_x} \left(f_{i-1}-2f_{i}+f_{i+1}\right),\quad i=0,1,\ldots,n-1,
+                $$
+                where $f_{-1}=f_n=0$, plugging we have
+                $$
+                -\frac{\hbar^2}{2 m}\frac{d^2}{dx^2}\psi_i + V_i\,\delta_{i,j}\psi_i = E\psi_i,
+                $$
+                or
+                $$-\frac{\hbar^2}{2 m}\frac{1}{\delta x^2}\begin{pmatrix}
+                -2 &amp; 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                1 &amp; -2 &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 1 &amp; -2 &amp; 1 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 1 &amp; -2 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; -2 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; -2 &amp; 1 \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 1 &amp; -2
+                \end{pmatrix}+
+                \begin{pmatrix}\psi_{0}\\\psi_{1}\\\psi_{2}\\\psi_{3}\\\vdots\\\psi_{n-3}\\\psi_{n-2}\\\psi_{n-1}\end{pmatrix}\begin{pmatrix}
+                V_0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; V_1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; V_2 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; V_3 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\
+                \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; V_{n-3} &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; V_{n-2} &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; V_{n-1}
+                \end{pmatrix}
+                \begin{pmatrix}\psi_{0}\\\psi_{1}\\\psi_{2}\\\psi_{3}\\\vdots\\\psi_{n-3}\\\psi_{n-2}\\\psi_{n-1}\\\end{pmatrix}
+                = E\begin{pmatrix}\psi_{0}\\\psi_{1}\\\psi_{2}\\\psi_{3}\\\vdots\\\psi_{n-3}\\\psi_{n-2}\\\psi_{n-1}\\\end{pmatrix},
+                $$
+
+                So, now it becomes solving this eigen problem for a large system
+                $$
+                \begin{pmatrix}
+                \displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_0&amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\[2ex]
+                \displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_1&amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\[2ex]
+                0 &amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_2&amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\[2ex]
+                0 &amp; 0 &amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_3&amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\[2ex]
+                \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots \\[2ex]
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_{n-3}&amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp; 0 \\[2ex]
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m} +V_{n-2}&amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} \\[2ex]
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp;\displaystyle -\frac{\hbar^2}{2\delta_x^2 m} &amp;\displaystyle \frac{\hbar^2}{\delta_x^2 m}+V_{n-1}
+                \end{pmatrix}
+                \begin{pmatrix}\psi_{0}\\[3.5ex]\psi_{1}\\[3.5ex]\psi_{2}\\[3.5ex]\psi_{3}\\[3.5ex]\vdots\\[3.5ex]\psi_{n-3}\\[3.5ex]\psi_{n-2}\\[3.5ex]\psi_{n-1}\\\end{pmatrix}
+                = E
+                \begin{pmatrix}\psi_{0}\\[3.5ex]\psi_{1}\\[3.5ex]\psi_{2}\\[3.5ex]\psi_{3}\\[3.5ex]\vdots\\[3.5ex]\psi_{n-3}\\[3.5ex]\psi_{n-2}\\[3.5ex]\psi_{n-1}\\\end{pmatrix}
+                $$
+            </p>
+        </div>
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <hr>
+
+            <h2 id="Algorithm">Algorithm<a class="anchor-link" href="#Algorithm">&#182;</a></h2>
+            <h3 id="import-package">import package<a class="anchor-link" href="#import-package">&#182;</a></h3>
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh_tridiagonal</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h3 id="setting-plotting-default">setting plotting default<a class="anchor-link" href="#setting-plotting-default">&#182;</a></h3>
+            <p><a href="https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html">Matplotlib: how to change default style</a></p>
+            <p><a href="https://stackoverflow.com/questions/3899980/how-to-change-the-font-size-on-a-matplotlib-plot">How to change the font size on a matplotlib plot</a></p>
+
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.usetex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Times New Roman&#39;</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.prop_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span><span class="s1">&#39;bgrcmyk&#39;</span><span class="p">)</span> 
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;mathtext.fontset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;cm&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h4 id="seting-the-position-space">seting the position space<a class="anchor-link" href="#seting-the-position-space">&#182;</a></h4>$$
+            x = [x_i,x_i+dx,\ldots,x_f]
+            $$
+        <div style="text-align:center"><img src="../assets/position_space.png" style="width:800px;margin:auto"></div>
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">xi</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># initial point</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="mi">1</span>      <span class="c1"># final point</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="mf">0.001</span>   <span class="c1"># step (delta_x) </span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">xf</span><span class="p">,</span><span class="n">dx</span><span class="p">)</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h3 id="define-the-potential-function">define the potential function<a class="anchor-link" href="#define-the-potential-function">&#182;</a></h3>
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">f</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="c1">#v[x&lt;0.5]=0</span>
+    <span class="k">return</span> <span class="n">v</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">V</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Potential $V(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;assets/Potential.pdf&#39;</span><span class="p">)</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jp-Cell-outputWrapper">
+
+
+            <div class="jp-OutputArea jp-Cell-outputArea">
+
+                <div class="jp-OutputArea-child">
+
+
+                    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+                    <img src="../assets/Potential.svg" alt="Potential image">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h3 id="Solving-the-eigen-problem">Solving the eigen problem<a class="anchor-link" href="#Solving-the-eigen-problem">&#182;</a></h3>
+            <p>Since the discrete Hamiltonian is an tridiagonal matrix in the form
+                $$\hat{H}=
+                \begin{pmatrix}
+                {b_{1}}&amp;{c_{1}}&amp;{}&amp;{}&amp;{0}\\
+                {a_{2}}&amp;{b_{2}}&amp;{c_{2}}&amp;{}&amp;{}\\
+                {}&amp;{a_{3}}&amp;{b_{3}}&amp;\ddots &amp;{}\\
+                {}&amp;{}&amp;\ddots &amp;\ddots &amp;{c_{n-1}}\\
+                {0}&amp;{}&amp;{}&amp;{a_{n}}&amp;{b_{n}}\\
+                \end{pmatrix},
+                $$
+                we can use <a href="https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm">tridiagonal matrix algorithm</a> to solve it, which only need $\mathcal{O}(n)$ operations rather than $\mathcal{O}(n^3)$ operations by <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a>.</p>
+            <p>Here using <code>eigh_tridiagonal(d,e)</code> function, built up by <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.eigh_tridiagonal.html">scipy</a>.</p>
+
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">V</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">e</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">eigh_tridiagonal</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h3 id="Define-the-Eigenfunction-$\psi_{i}$-and-Eigenvalue-$E_i$">Define the Eigenfunction $\psi_{i}$ and Eigenvalue $E_i$<a class="anchor-link" href="#Define-the-Eigenfunction-$\psi_{i}$-and-Eigenvalue-$E_i$">&#182;</a></h3>
+            <ul>
+                <li>Eigenfunction $\psi_{i}$, $i=0,1,\ldots,\text{length}\left(x\right)$</li>
+                <li>Eigenvalue $E_i$, $i=0,1,\ldots,\text{length}\left(x\right)$</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">T</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">w</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-InputPrompt jp-InputArea-prompt">
+        </div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+            <h3 id="Plot-the-Eigenfunction">Plot the Eigenfunction<a class="anchor-link" href="#Plot-the-Eigenfunction">&#182;</a></h3>$$
+            \left|\phi_{i}(x)\right|^2,\quad i =0,1,\ldots,9
+            $$
+        </div>
+    </div>
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+        <div class="jp-Cell-inputWrapper">
+            <div class="jp-InputArea jp-Cell-inputArea">
+                <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                    <div class="CodeMirror cm-s-jupyter">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">col</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">f</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">row</span><span class="o">*</span><span class="n">col</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\phi_{&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;}(x)$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;assets/Eigenfunction.pdf&#39;</span><span class="p">)</span>
+</pre>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jp-Cell-outputWrapper">
+
+
+            <div class="jp-OutputArea jp-Cell-outputArea">
+
+                <div class="jp-OutputArea-child">
+
+
+                    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+                    <img src="../assets/Eigenfunction.svg" alt="Eigenfunction image">
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+            <div class="jp-Cell-inputWrapper">
+                <div class="jp-InputArea jp-Cell-inputArea">
+                    <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+                    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+                        <div class="CodeMirror cm-s-jupyter">
+                            <div class=" highlight hl-ipython3">
+                                <pre><span></span><span class="n">E_N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">a0</span><span class="p">,</span><span class="n">a1</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]})</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">E_N</span><span class="p">):</span> 
+    <span class="n">a0</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">E_N</span><span class="p">],</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">a0</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">a0</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$n$&#39;</span><span class="p">)</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Eigenvalue $E_n$&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;assets/Eigenvalue.pdf&#39;</span><span class="p">)</span>
+</pre>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jp-Cell-outputWrapper">
+
+
+                <div class="jp-OutputArea jp-Cell-outputArea">
+
+                    <div class="jp-OutputArea-child">
+
+
+                        <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+                        <img src="../assets/Eigenvalue.svg" alt="Eigenvalue image">
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
